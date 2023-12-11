@@ -6,7 +6,6 @@ import { NextResponse } from "next/server";
 export const POST = async (request) => {
   const { email, password } = await request.json();
   await connect();
-  console.log('email, password',email, password)
   const existingUser = await User.findOne({
     email,
   });

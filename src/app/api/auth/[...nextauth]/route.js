@@ -43,11 +43,34 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
+  callbacks: {
+    // async signIn({ user, account }) {
+    //   if (account?.provider == "credentials") {
+    //     return true;
+    //   }
+    //   if (account?.provider == "github") {
+    //     return connect();
+        // try {
+        //   const existingUser = await User.findOne({ email: user?.email });
+        //   if (!existingUser) {
+        //     const newUser = new User({
+        //       email: user.email,
+        //     });
+        //     await newUser.save();
+        //     return true;
+        //   }
+        // } catch (err) {
+        //   console.log(err);
+        //   return false;
+        // }
+    //   }
+    // }
+  },
   session: {
     strategy: "jwt",
   },
   secret: process.env.SECRET,
-  pages: { signIn: "/register" },
+  // pages: { signIn: "/register" },
 });
 
 export { handler as GET, handler as POST };

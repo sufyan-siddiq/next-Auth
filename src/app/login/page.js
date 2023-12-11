@@ -31,7 +31,7 @@ const page = () => {
     });
     if (res?.ok) {
       toast.success("user logedin");
-      router.replace("/");
+      router.replace("/dashboard");
     } else {
       toast.error("Invalid email or password");
     }
@@ -64,15 +64,17 @@ const page = () => {
             Sign in
           </button>
           <div className=" w-[450px]  flex  justify-end ">
-            <Link href="/register">
+            <Link href="/forget-password">
               <span className="text-black text-center">Forgot password?</span>
             </Link>
           </div>
         </form>
         <button
           onClick={async () => {
-            await signIn();
+            await signIn("github");
             toast.success("user logedin");
+            router.replace("/dashboard");
+
           }}
           type="submit"
           className="bg-gradient-to-r mt-[10px] w-[450px] from-yellow-600 via-red-600 to-pink-600 text-white h-10 rounded-md"
@@ -81,8 +83,9 @@ const page = () => {
         </button>
         <button
           onClick={async () => {
-            await signIn();
+            await signIn("google");
             toast.success("user logedin");
+            router.replace("/dashboard");
           }}
           type="submit"
           className="bg-gradient-to-r mt-[10px] w-[450px] from-yellow-600 via-red-600 to-pink-600 text-white h-10 rounded-md"

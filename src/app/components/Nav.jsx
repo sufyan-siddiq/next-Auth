@@ -2,14 +2,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { signOut, getProviders, signIn, useSession } from "next-auth/react";
+import { signOut, getProviders, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 export const Nav = () => {
   const [providers, setProviders] = useState(null);
-  const [toggleDropdown, setToggleDropdown] = useState(false);
   const router = useRouter();
   const session = useSession();
-  console.log(session.status);
+  console.log(session?.data?.user?.email);
   useEffect(() => {
     async () => {
       const res = await getProviders();
@@ -19,11 +18,10 @@ export const Nav = () => {
   const handleLogOut = () => {
     signOut();
     router.replace("/login");
-   
   };
 
   return (
-    <nav className="flex-between w-full mb-16 pt-3">
+    <nav className="flex-between w-full mb-16 pt-3 px-2">
       <Link href="/" className="flex gap-2 flex-center">
         <Image
           src="/assets/images/logo.svg"
@@ -35,15 +33,16 @@ export const Nav = () => {
         <p className="logo_text">Promptopia</p>
       </Link>
       <div className="sm:flex hidden">
-        {session.status === "authenticated" ? (
+        {session?.data?.user?.email ? (
           <div className="flex gap-3 md:gap-5">
-            <Link href="/create-prompt" className="black_btn">
-              Create Post
-            </Link>
+            <h2 className="text-2xl font-bold text-blue-900">
+              {session ? session?.data?.user?.email : ""}
+            </h2>
+
             <button
               type="button"
               onClick={handleLogOut}
-              className="outline_btn"
+              className="black_btn"
             >
               Sign Out
             </button>

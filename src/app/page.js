@@ -1,11 +1,13 @@
+import { getServerSession } from "next-auth";
 import { Feed } from "./components/Feed";
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession();
+  console.log("ertretrehfgd");
+  if (session) {
+    redirect("/dashboard");
+  }
   return (
     <section className="w-full flex-center flex-col">
-      <h1 className="head_text pt-[130px] orange_gradient">
-        Dashboard
-        <br className="max-md:hidden" />
-      </h1>
       <h1 className="head_text text-center">
         Discover & Share
         <br className="max-md:hidden" />
